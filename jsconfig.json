@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"]//配置项只做路径联想功能，实际的路径转换在vit.config.js
     }
   },
   "exclude": ["node_modules", "dist"]
