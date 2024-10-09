@@ -1,6 +1,10 @@
 <script setup>
 import { useScroll } from "@vueuse/core";
+//pinia获取重复数据
+import { useCategoryStore } from "@/stores/useHeaderCategory";
+//页面滚动下滑
 const { y } = useScroll(window);
+const categoryStore = useCategoryStore();
 </script>
 
 <template>
@@ -9,10 +13,18 @@ const { y } = useScroll(window);
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
 
-      <LayoutHeaderUl />
-      <div class="right">
-        <RouterLink to="/">品牌</RouterLink>
-        <RouterLink to="/">专题</RouterLink>
+      <ul class="app-header-nav">
+        <li
+          class="home"
+          v-for="item in categoryStore.categoryList"
+          :key="item.id"
+        >
+          {{ item.name }}
+        </li>
+      </ul>
+      <div class="search">
+        <i class="iconfont icon-search"></i>
+        <input type="text" placeholder="搜一搜" />
       </div>
     </div>
   </div>
@@ -52,7 +64,32 @@ const { y } = useScroll(window);
     background: url("@/assets/images/logo.png") no-repeat right 2px;
     background-size: 160px auto;
   }
-
+  .app-header-nav {
+    width: 820px;
+    display: flex;
+    padding-left: 40px;
+    position: relative;
+    z-index: 998;
+    li {
+      margin-right: 40px;
+      width: 38px;
+      text-align: center;
+      a {
+        font-size: 16px;
+        line-height: 32px;
+        height: 32px;
+        display: inline-block;
+        &:hover {
+          color: $xtxColor;
+          border-bottom: 1px solid $xtxColor;
+        }
+      }
+      .active {
+        color: $xtxColor;
+        border-bottom: 1px solid $xtxColor;
+      }
+    }
+  }
   .right {
     width: 220px;
     display: flex;
@@ -70,6 +107,24 @@ const { y } = useScroll(window);
         color: $xtxColor;
       }
     }
+  }
+}
+.search {
+  width: 170px;
+  height: 32px;
+  position: relative;
+  border-bottom: 1px solid #e7e7e7;
+  line-height: 32px;
+
+  .icon-search {
+    font-size: 18px;
+    margin-left: 5px;
+  }
+
+  input {
+    width: 140px;
+    padding-left: 5px;
+    color: #666;
   }
 }
 </style>
