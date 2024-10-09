@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+import { useScroll } from "@vueuse/core";
+const { y } = useScroll(window);
+</script>
 
 <template>
   <div class="app-header-sticky" :class="{ show: y > 78 }">
