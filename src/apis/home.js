@@ -1,8 +1,8 @@
 import httpInstance from "@/utils/http";
 
-export function getCategoryAPI() {
+
+export function getBannerAPI() {
     return httpInstance({
-        url:'/home/category/head'
+        url:'/home/banner'
     })
 }
-
