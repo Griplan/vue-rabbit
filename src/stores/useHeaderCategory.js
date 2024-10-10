@@ -10,8 +10,8 @@ import { defineStore } from 'pinia'
 export const useCategoryStore = defineStore('category', ()=>{
     const categoryList = ref([]);
     async function getHeaderCategory() {
-    categoryList.value = (await getCategoryAPI()).data.result;
-    console.log("aaa", categoryList);
+        categoryList.value = (await getCategoryAPI()).data.result;
+        //console.log("store存储好了",categoryList.value);
     }
     return {
         categoryList,

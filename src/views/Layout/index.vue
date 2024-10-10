@@ -8,6 +8,7 @@
 </template>
 
 <script setup>
+/* console.log("layooutindex"); */
 import { onMounted } from "vue";
 import LayoutFixed from "./components/LayoutFixed.vue";
 import LayoutFooter from "./components/LayoutFooter.vue";
