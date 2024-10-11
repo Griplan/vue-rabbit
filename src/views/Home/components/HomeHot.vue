@@ -3,7 +3,7 @@ import { getHotAPI } from "@/apis/home";
 import { onMounted, ref } from "vue";
 import HomePannal from "./HomePannal.vue";
 
-import { useIntersectionObserver } from "@vueuse/core";
+//import { useIntersectionObserver } from "@vueuse/core";
 
 const hotList = ref([]);
 async function getHotList() {
@@ -13,7 +13,7 @@ onMounted(() => {
   getHotList();
 });
 
-//尝试在setup实现自定义指令
+/* //尝试在setup实现自定义指令
 const vImgLazy = {
   mounted: (el, binding) => {
     useIntersectionObserver(el, ([{ isIntersecting }]) => {
@@ -23,7 +23,7 @@ const vImgLazy = {
       }
     });
   },
-};
+}; */
 </script>
 
 <template>

@@ -5,7 +5,8 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import { useIntersectionObserver } from "@vueuse/core"; //自定义指令时用到的获取组件是否出现
+import { lazyPlugin } from './directives'
+//import { useIntersectionObserver } from "@vueuse/core"; //自定义指令时用到的获取组件是否出现
 
 //测试接口函数
 /* import { getCategory } from './apis/testAPS'
@@ -18,9 +19,10 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(lazyPlugin)
 app.mount('#app')
 
-//app顺序没关系么？？
+//app顺序没关系么？ ？
 
 /* app.directive('img-lazy', {
     mounted(el,binding) {
