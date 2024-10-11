@@ -1,5 +1,5 @@
-<!-- <script setup>
-import HomePanel from "./HomePanel.vue";
+<script setup>
+
 </script>
 
 <template>
@@ -49,5 +49,4 @@ import HomePanel from "./HomePanel.vue";
     }
   }
 }
-</style> -->
-<template>hotList</template>
+</style>

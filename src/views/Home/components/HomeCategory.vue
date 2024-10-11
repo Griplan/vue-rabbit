@@ -3,7 +3,6 @@
 import { useCategoryStore } from "@/stores/useHeaderCategory";
 
 const categoryStore = useCategoryStore();
-console.log("aaa", categoryStore.categoryList.children);
 </script>
 
 <template>
