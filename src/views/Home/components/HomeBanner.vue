@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { ref } from "vue";
-import { getBannerAPI } from "@/apis/layout";
+import { getBannerAPI } from "@/apis/home";
 
 onMounted(() => getBanner()); //挂载时就调用
 
