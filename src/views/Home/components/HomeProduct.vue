@@ -1,9 +1,40 @@
-<!-- <script setup>
+<script setup>
+import HomePannal from "./HomePannal.vue";
+import { onMounted, ref } from "vue";
+import { getGoodsAPI } from "@/apis/home";
+const goodsProduct = ref([]);
+async function getGoods() {
+  goodsProduct.value = (await getGoodsAPI()).data.result;
+}
+onMounted(() => {
+  getGoods();
+});
 </script>
 
 <template>
   <div class="home-product">
-    <HomePanel :title="cate.name" v-for="cate in goodsProduct" :key="cate.id">
+    <HomePannal :title="item.name" v-for="item in goodsProduct" :key="item.id">
+      <div class="box">
+        <RouterLink class="cover" to="/">
+          <img v-img-lazy="item.picture" />
+          <strong class="label">
+            <span>{{ item.name }}馆</span>
+            <span>{{ item.saleInfo }}</span>
+          </strong>
+        </RouterLink>
+        <ul class="goods-list">
+          <li v-for="i in item.goods" :key="i.id">
+            <RouterLink to="/" class="goods-item">
+              <img v-img-lazy="i.picture" alt="" />
+              <p class="name ellipsis">{{ i.name }}</p>
+              <p class="desc ellipsis">{{ i.desc }}</p>
+              <p class="price">&yen;{{ i.price }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+    </HomePannal>
+    <!-- <HomePannal :title="cate.name" v-for="cate in goodsProduct" :key="cate.id">
       <div class="box">
         <RouterLink class="cover" to="/">
           <img :src="cate.picture" />
@@ -23,7 +54,7 @@
           </li>
         </ul>
       </div>
-    </HomePanel>
+    </HomePannal> -->
   </div>
 </template>
 
@@ -151,5 +182,4 @@
     }
   }
 }
-</style> -->
-<template>homeProduct</template>
+</style>

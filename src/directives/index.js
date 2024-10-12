@@ -22,7 +22,6 @@ export const lazyPlugin= {
                 el,
                 ([{ isIntersecting }]) => {
                     if (isIntersecting) {
-                        console.log('true');
                         el.src = binding.value; 
                         stop();
                     }
