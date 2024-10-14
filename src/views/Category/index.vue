@@ -2,7 +2,7 @@
 import { getCategoryAPI } from "@/apis/category";
 import { getBannerAPI } from "@/apis/home";
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { onBeforeRouteUpdate, useRoute } from "vue-router";
 import GoodsItem from "../Home/components/GoodsItem.vue";
 
 onMounted(() => {
@@ -13,10 +13,9 @@ onMounted(() => {
 const categoryList = ref({});
 const route = useRoute();
 
-async function getCategory() {
-  const res = (await getCategoryAPI(route.params.id)).data.result;
+async function getCategory(id = route.params.id) {
+  const res = (await getCategoryAPI(id)).data.result;
   categoryList.value = res;
-  //console.log("aaaaa", categoryList);
 }
 
 //轮播图
@@ -29,6 +28,11 @@ async function getBanner() {
     })
   ).data.result;
 }
+//另一种方法尝试解决路由跳转时复用问题
+onBeforeRouteUpdate(async (to) => {
+  await getCategory(to.params.id);
+  console.log("lalaal", categoryList);
+});
 </script>
 
 <template>
