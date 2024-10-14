@@ -1,38 +1,12 @@
 <script setup>
-import { getCategoryAPI } from "@/apis/category";
-import { getBannerAPI } from "@/apis/home";
-import { onMounted, ref } from "vue";
-import { onBeforeRouteUpdate, useRoute } from "vue-router";
 import GoodsItem from "../Home/components/GoodsItem.vue";
+import { useBanner } from "./composables/useBanner";
+import { useCategory } from "./composables/useCategory";
 
-onMounted(() => {
-  getCategory();
-  getBanner();
-});
 //面包屑
-const categoryList = ref({});
-const route = useRoute();
 
-async function getCategory(id = route.params.id) {
-  const res = (await getCategoryAPI(id)).data.result;
-  categoryList.value = res;
-}
-
-//轮播图
-const bannerList = ref([]);
-
-async function getBanner() {
-  bannerList.value = (
-    await getBannerAPI({
-      distributionSite: "2",
-    })
-  ).data.result;
-}
-//另一种方法尝试解决路由跳转时复用问题
-onBeforeRouteUpdate(async (to) => {
-  await getCategory(to.params.id);
-  console.log("lalaal", categoryList);
-});
+const { bannerList } = useBanner();
+const { categoryList } = useCategory();
 </script>
 
 <template>
