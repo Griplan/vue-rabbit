@@ -17,6 +17,15 @@ export function getCategoryFilterAPI(id) {//获取面包屑二级导航
         }
     })
 }
+
+
+export function getSubCategoryAPI(data) {
+    return request({
+        url: '/category/goods/temporary',
+        method: 'POST',
+        data
+    })
+}
 /* export const getCategoryFilterAPI = (id) => {
   return request({
     url:'/category/sub/filter',
