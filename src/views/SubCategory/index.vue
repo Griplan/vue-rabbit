@@ -34,10 +34,26 @@ onMounted(() => {
 
 //获取激活标签内容
 function tabChange() {
-  console.log("tab切换了", postData.value.sortField);
+  //console.log("tab切换了", postData.value.sortField);
   postData.value.page = 1;
   getSubCategory();
 }
+
+//无限滚动
+async function load() {
+  //console.log("daodile");
+  postData.value.page++;
+  const res = await getSubCategoryAPI(postData.value);
+  subGoodList.value = [...subGoodList.value, ...res.data.result.items];
+  if (res.data.result.items.length === 0) {
+    disabled.value = true;
+  }
+}
+
+//1【】可以这样拼接新老数组，
+//2 :infinite-scroll-disabled="disabled" disabled可以是函数也可以是变量
+
+const disabled = ref(false);
 </script>
 
 <template>
@@ -59,7 +75,11 @@ function tabChange() {
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <div
+        class="body"
+        v-infinite-scroll="load"
+        :infinite-scroll-disabled="disabled"
+      >
         <!-- 商品列表-->
         <GoodsItem
           v-for="goods in subGoodList"
