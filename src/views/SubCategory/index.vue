@@ -24,10 +24,20 @@ const postData = ref({
   sortField: "publishTime",
 });
 async function getSubCategory() {
-  subGoodList.value = (await getSubCategoryAPI(postData)).data.result.items;
-  console.log("aaaaaaaaaaa", subGoodList);
+  subGoodList.value = (
+    await getSubCategoryAPI(postData.value)
+  ).data.result.items;
 }
-onMounted(() => getSubCategory());
+onMounted(() => {
+  getSubCategory();
+});
+
+//获取激活标签内容
+function tabChange() {
+  console.log("tab切换了", postData.value.sortField);
+  postData.value.page = 1;
+  getSubCategory();
+}
 </script>
 
 <template>
@@ -44,7 +54,7 @@ onMounted(() => getSubCategory());
       </el-breadcrumb>
     </div>
     <div class="sub-container">
-      <el-tabs>
+      <el-tabs v-model="postData.sortField" @tab-change="tabChange">
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
