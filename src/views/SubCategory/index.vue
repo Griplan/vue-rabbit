@@ -1,4 +1,19 @@
-<script setup></script>
+<script setup>
+import { getCategoryFilterAPI } from "@/apis/category";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute();
+const cateFilterDataList = ref({}); //根据二级导航id获取数据
+async function getCateFilterDataList() {
+  cateFilterDataList.value = (
+    await getCategoryFilterAPI(route.params.id)
+  ).data.result;
+  console.log("aaaaa", cateFilterDataList);
+}
+onMounted(() => {
+  getCateFilterDataList();
+});
+</script>
 
 <template>
   <div class="container">
@@ -6,8 +21,11 @@
     <div class="bread-container">
       <el-breadcrumb separator=">">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/' }">居家 </el-breadcrumb-item>
-        <el-breadcrumb-item>居家生活用品</el-breadcrumb-item>
+        <el-breadcrumb-item
+          :to="{ path: `/category/${cateFilterDataList.parentId}` }"
+          >{{ cateFilterDataList.parentName }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>{{ cateFilterDataList.name }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="sub-container">
