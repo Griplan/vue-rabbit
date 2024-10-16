@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from "vue";
+import { useMouseInElement } from "@vueuse/core";
+import { ref, watch } from "vue";
 
 // 图片列表
 const imageList = [
@@ -13,6 +14,36 @@ let activeUrl = ref(1);
 function changeActive(id) {
   activeUrl.value = id;
 }
+//viewe滑块跟随鼠标移动
+const left = ref(0);
+const top = ref(0);
+const target = ref(null);
+const { elementX, elementY, isOutside } = useMouseInElement(target);
+watch([elementX, elementY], () => {
+  if (isOutside.value) return;
+  //有效距离控制滑块距离
+  //横向
+  if (elementX.value > 100 && elementX.value < 300) {
+    left.value = elementX.value - 100;
+  }
+  //纵向
+  if (elementY.value > 100 && elementY.value < 300) {
+    top.value = elementY.value - 100;
+  }
+  //处理边界
+  if (elementX.value > 300) {
+    left.value = 200;
+  }
+  if (elementX.value < 100) {
+    left.value = 0;
+  }
+  if (elementY.value > 300) {
+    top.value = 200;
+  }
+  if (elementY.value < 100) {
+    top.value = 0;
+  }
+});
 </script>
 
 <template>
@@ -21,7 +52,7 @@ function changeActive(id) {
     <div class="middle" ref="target">
       <img :src="imageList[activeUrl]" alt="" />
       <!-- 蒙层小滑块 -->
-      <div class="layer" :style="{ left: `0px`, top: `0px` }"></div>
+      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
     </div>
     <!-- 小图列表 -->
     <ul class="small">
