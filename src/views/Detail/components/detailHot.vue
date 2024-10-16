@@ -1,6 +1,6 @@
 <script setup>
 import { fetchHotGoodsAPI } from "@/apis/detail";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 //获取热榜数据
 const goodsHot = ref({});
@@ -10,11 +10,24 @@ async function getGoodsHot() {
   console.log("aaa", goodsHot);
 }
 onMounted(() => getGoodsHot());
+//适配不同热榜
+const props = defineProps({
+  type: {
+    type: Number, //124小时热榜2 周热榜
+    default: 1,
+  },
+});
+const TITLEMAP = {
+  1: "24小时热榜",
+  2: "周热榜",
+};
+
+const title = computed(() => TITLEMAP[props.type]);
 </script>
 
 <template>
   <div class="goods-hot">
-    <h3>周日榜单</h3>
+    <h3>{{ title }}</h3>
     <!-- 商品区块 -->
     <RouterLink
       to="/"

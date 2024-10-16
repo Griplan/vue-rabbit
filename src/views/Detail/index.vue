@@ -160,8 +160,8 @@ onMounted(() => getGoodsDetail());
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-              <detailHot></detailHot>
-              <detailHot></detailHot>
+              <detailHot :type="1"></detailHot>
+              <detailHot :type="2"></detailHot>
             </div>
           </div>
         </div>
