@@ -3,36 +3,68 @@ import { getGoodsDetailsAPI } from "@/apis/detail";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
-//获取Goods细节列表
+/* const goodsDetail = ref({
+  categories: [
+    {
+      id: "",
+      name: "",
+      parent: {
+        id: "",
+        name: "",
+      },
+    },
+    {
+      id: "",
+      name: "",
+      parent: {
+        id: "",
+        name: "",
+      },
+    },
+  ],
+  details: {
+    properties: [
+      { name: "", value: "" },
+      { name: "", value: "" },
+    ],
+    picture: [],
+  },
+  salesCount: 0,
+  commentCount: 0,
+  collectCount: 0,
+  brand: { name: "" },
+  name: "",
+  desc: "",
+  oldPrice: 0,
+  price: 0,
+}); */
+/* 解决异步数据可能出现的undefine.undefine导致不渲染可以1默认值占位2？判断 */
 const goodsDetail = ref({});
 const route = useRoute();
-async function getGoodsDetailList() {
+async function getGoodsDetail() {
   goodsDetail.value = (await getGoodsDetailsAPI(route.params.id)).data.result;
+  console.log("aaa", goodsDetail);
 }
-onMounted(() => getGoodsDetailList());
+onMounted(() => getGoodsDetail());
 </script>
 
 <template>
   <div class="xtx-goods-page">
     <div class="container">
       <div class="bread-container">
-        <!-- 可能错误原因：
-                一开始GoodsDetail是空对象，这时候访问【0】，会是undefined
-                解决：1.使用？.   2.v-if判断
-          -->
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item
-            :to="{ path: `/category/${goodsDetail.categories?.[1].id}` }"
-            >{{ goodsDetail.categories?.[1].name }}
+            :to="{ path: `/category/${goodsDetail.categories?.[1]?.id}` }"
+            >{{ goodsDetail.categories?.[1]?.name }}
           </el-breadcrumb-item>
           <el-breadcrumb-item
             :to="{
-              path: `/category/subcategory/${goodsDetail.categories?.[0].id}`,
+              path: `/category/subcategory/${goodsDetail.categories?.[0]?.id}`,
             }"
-            >{{ goodsDetail.categories?.[0].name }}
+            >{{ goodsDetail.categories?.[0]?.name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item>{{ goodsDetail.name }}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ goodsDetail?.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 商品信息 -->
@@ -46,33 +78,33 @@ onMounted(() => getGoodsDetailList());
               <ul class="goods-sales">
                 <li>
                   <p>销量人气</p>
-                  <p>{{ goodsDetail.salesCount }}+</p>
+                  <p>{{ goodsDetail?.salesCount }}+</p>
                   <p><i class="iconfont icon-task-filling"></i>销量人气</p>
                 </li>
                 <li>
                   <p>商品评价</p>
-                  <p>{{ goodsDetail.commentCount }}+</p>
+                  <p>{{ goodsDetail?.commentCount }}+</p>
                   <p><i class="iconfont icon-comment-filling"></i>查看评价</p>
                 </li>
                 <li>
                   <p>收藏人气</p>
-                  <p>{{ goodsDetail.collectCount }}+</p>
+                  <p>{{ goodsDetail?.collectCount }}+</p>
                   <p><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
                 </li>
                 <li>
                   <p>品牌信息</p>
-                  <p>{{ goodsDetail.brand.name }}</p>
+                  <p>{{ goodsDetail?.brand?.name }}</p>
                   <p><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
                 </li>
               </ul>
             </div>
             <div class="spec">
               <!-- 商品信息区 -->
-              <p class="g-name">{{ goodsDetail.name }}</p>
-              <p class="g-desc">{{ goodsDetail.desc }}</p>
+              <p class="g-name">{{ goodsDetail?.name }}</p>
+              <p class="g-desc">{{ goodsDetail?.desc }}</p>
               <p class="g-price">
-                <span>{{ goodsDetail.oldPrice }}</span>
-                <span> {{ goodsDetail.price }}</span>
+                <span>{{ goodsDetail?.price }}</span>
+                <span> {{ goodsDetail?.oldPrice }}</span>
               </p>
               <div class="g-service">
                 <dl>
@@ -110,7 +142,7 @@ onMounted(() => getGoodsDetailList());
                   <!-- 属性 -->
                   <ul class="attrs">
                     <li
-                      v-for="item in goodsDetail.details.properties"
+                      v-for="item in goodsDetail?.details?.properties"
                       :key="item.value"
                     >
                       <span class="dt">{{ item.name }}</span>
@@ -119,9 +151,9 @@ onMounted(() => getGoodsDetailList());
                   </ul>
                   <!-- 图片 -->
                   <img
-                    v-for="img in goodsDetail.details.pictures"
-                    :src="img"
+                    v-for="img in goodsDetail?.details?.pictures"
                     :key="img"
+                    :src="img"
                   />
                 </div>
               </div>
