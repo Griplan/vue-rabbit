@@ -17,6 +17,8 @@ function changeActive(id) {
 //viewe滑块跟随鼠标移动
 const left = ref(0);
 const top = ref(0);
+const positionX = ref(0);
+const positionY = ref(0);
 const target = ref(null);
 const { elementX, elementY, isOutside } = useMouseInElement(target);
 watch([elementX, elementY], () => {
@@ -43,6 +45,9 @@ watch([elementX, elementY], () => {
   if (elementY.value < 100) {
     top.value = 0;
   }
+  // 控制大图的显示
+  positionX.value = -left.value * 2;
+  positionY.value = -top.value * 2;
 });
 </script>
 
@@ -52,7 +57,11 @@ watch([elementX, elementY], () => {
     <div class="middle" ref="target">
       <img :src="imageList[activeUrl]" alt="" />
       <!-- 蒙层小滑块 -->
-      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
+      <div
+        class="layer"
+        :style="{ left: `${left}px`, top: `${top}px` }"
+        v-show="!isOutside"
+      ></div>
     </div>
     <!-- 小图列表 -->
     <ul class="small">
@@ -70,12 +79,12 @@ watch([elementX, elementY], () => {
       class="large"
       :style="[
         {
-          backgroundImage: `url(${imageList[0]})`,
-          backgroundPositionX: `0px`,
-          backgroundPositionY: `0px`,
+          backgroundImage: `url(${imageList[activeUrl]})`,
+          backgroundPositionX: `${positionX}px`,
+          backgroundPositionY: `${positionY}px`,
         },
       ]"
-      v-show="false"
+      v-show="!isOutside"
     ></div>
   </div>
 </template>
