@@ -3,6 +3,7 @@ import { getGoodsDetailsAPI } from "@/apis/detail";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import detailHot from "./components/detailHot.vue";
+import ImageViewer from "./components/imageViewer.vue";
 
 /* const goodsDetail = ref({
   categories: [
@@ -73,7 +74,7 @@ onMounted(() => getGoodsDetail());
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-
+              <ImageViewer></ImageViewer>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>

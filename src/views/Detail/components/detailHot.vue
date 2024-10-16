@@ -7,7 +7,6 @@ const goodsHot = ref({});
 const route = useRoute();
 async function getGoodsHot() {
   goodsHot.value = (await fetchHotGoodsAPI(route.params.id, 1)).data.result;
-  console.log("aaa", goodsHot);
 }
 onMounted(() => getGoodsHot());
 //适配不同热榜
