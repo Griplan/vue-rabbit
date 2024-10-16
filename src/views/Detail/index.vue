@@ -2,6 +2,7 @@
 import { getGoodsDetailsAPI } from "@/apis/detail";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import detailHot from "./components/detailHot.vue";
 
 /* const goodsDetail = ref({
   categories: [
@@ -43,7 +44,6 @@ const goodsDetail = ref({});
 const route = useRoute();
 async function getGoodsDetail() {
   goodsDetail.value = (await getGoodsDetailsAPI(route.params.id)).data.result;
-  console.log("aaa", goodsDetail);
 }
 onMounted(() => getGoodsDetail());
 </script>
@@ -159,7 +159,10 @@ onMounted(() => getGoodsDetail());
               </div>
             </div>
             <!-- 24热榜+专题推荐 -->
-            <div class="goods-aside"></div>
+            <div class="goods-aside">
+              <detailHot></detailHot>
+              <detailHot></detailHot>
+            </div>
           </div>
         </div>
       </div>
