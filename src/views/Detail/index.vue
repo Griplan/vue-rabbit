@@ -1,6 +1,5 @@
 <script setup>
 import { getGoodsDetailsAPI } from "@/apis/detail";
-import Sku from "@/components/XtxSku/index.vue";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import detailHot from "./components/detailHot.vue";
@@ -131,7 +130,7 @@ function changeSKu(sku) {
                 </dl>
               </div>
               <!-- sku组件 -->
-              <Sku :goods="goodsDetail" @change="changeSKu"></Sku>
+              <XtxSku :goods="goodsDetail" @change="changeSKu"></XtxSku>
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->

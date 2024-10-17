@@ -6,6 +6,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { lazyPlugin } from './directives'
+import {componentPlugin}from '@/components'
 //import { useIntersectionObserver } from "@vueuse/core"; //自定义指令时用到的获取组件是否出现
 
 //测试接口函数
@@ -19,6 +20,7 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(componentPlugin)
 app.use(lazyPlugin)
 app.mount('#app')
 
