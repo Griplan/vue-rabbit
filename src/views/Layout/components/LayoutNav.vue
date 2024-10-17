@@ -4,7 +4,7 @@
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="true">
+        <template v-if="false">
           <li><a href="javasrcipt:;"></a></li>
           <li>
             <a href="javascript:;" @click="$router.push('/member/order')"
