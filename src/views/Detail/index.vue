@@ -1,5 +1,6 @@
 <script setup>
 import { getGoodsDetailsAPI } from "@/apis/detail";
+import Sku from "@/components/XtxSku/index.vue";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import detailHot from "./components/detailHot.vue";
@@ -47,6 +48,11 @@ async function getGoodsDetail() {
   goodsDetail.value = (await getGoodsDetailsAPI(route.params.id)).data.result;
 }
 onMounted(() => getGoodsDetail());
+
+//skuChange
+function changeSKu(sku) {
+  console.log("aaaaaaa", sku);
+}
 </script>
 
 <template>
@@ -74,7 +80,9 @@ onMounted(() => getGoodsDetail());
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImageViewer></ImageViewer>
+              <ImageViewer
+                :image-list="goodsDetail?.mainPictures"
+              ></ImageViewer>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -123,7 +131,7 @@ onMounted(() => getGoodsDetail());
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <Sku :goods="goodsDetail" @change="changeSKu"></Sku>
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->
