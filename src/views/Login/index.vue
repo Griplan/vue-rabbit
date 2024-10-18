@@ -1,4 +1,30 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+//绑定表单数据
+const form = ref({
+  account: "",
+  password: "",
+});
+
+//表单校验规则
+const rules = {
+  account: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+  password: [
+    { required: true, message: "密码不能为空", trigger: "blur" },
+    { min: 6, max: 14, message: "长度为6-14字符", trigger: "blur" },
+  ],
+};
+// 使用 watch 来监视 myVariable 的变化
+/* watch(form, (newValue, oldValue) => {
+  console.log(`form changed from ${oldValue} to ${newValue}`);
+}); */
+// 定期检查 myVariable 的状态
+/* setInterval(() => {
+  // 这里你可以添加逻辑来处理 myVariable 的状态
+  console.log(`Current Value: `, form.value.account);
+}, 5000); */
+</script>
 
 <template>
   <div>
@@ -21,12 +47,18 @@
         </nav>
         <div class="account-box">
           <div class="form">
-            <el-form label-position="right" label-width="60px" status-icon>
-              <el-form-item label="账户">
-                <el-input />
+            <el-form
+              label-position="right"
+              label-width="60px"
+              status-icon
+              :rules="rules"
+              :model="form"
+            >
+              <el-form-item label="账户" prop="account">
+                <el-input v-model="form.account" />
               </el-form-item>
-              <el-form-item label="密码">
-                <el-input />
+              <el-form-item label="密码" prop="password">
+                <el-input v-model="form.password" />
               </el-form-item>
               <el-form-item label-width="22px">
                 <el-checkbox size="large">
