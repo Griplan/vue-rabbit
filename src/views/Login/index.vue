@@ -5,6 +5,7 @@ import { ref } from "vue";
 const form = ref({
   account: "",
   password: "",
+  agree: false,
 });
 
 //表单校验规则
@@ -14,7 +15,30 @@ const rules = {
     { required: true, message: "密码不能为空", trigger: "blur" },
     { min: 6, max: 14, message: "长度为6-14字符", trigger: "blur" },
   ],
+  agree: [
+    {
+      validator: (rule, value, callback) => {
+        console.log(value);
+        //自定义校验逻辑
+        //勾选就通过
+        if (value) {
+          callback();
+        } else {
+          callback(new Error("请勾选同意"));
+        }
+      },
+    },
+  ],
 };
+/* watch(
+  () => form.value.agree,
+  (newValue, oldValue) => {
+    console.log("change", newValue, "from", oldValue);
+  }
+); */
+/* function checkAgree(rule, value, callback) {
+  console.log("bianhuale");
+} */
 // 使用 watch 来监视 myVariable 的变化
 /* watch(form, (newValue, oldValue) => {
   console.log(`form changed from ${oldValue} to ${newValue}`);
@@ -60,8 +84,8 @@ const rules = {
               <el-form-item label="密码" prop="password">
                 <el-input v-model="form.password" />
               </el-form-item>
-              <el-form-item label-width="22px">
-                <el-checkbox size="large">
+              <el-form-item label-width="22px" prop="agree">
+                <el-checkbox size="large" v-model="form.agree">
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
