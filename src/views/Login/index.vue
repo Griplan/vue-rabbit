@@ -1,10 +1,14 @@
 <script setup>
 import { ref } from "vue";
+import { loginAPI } from "@/apis/user";
+import "element-plus/es/components/message/style/css";
+import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
 
 //绑定表单数据
 const form = ref({
-  account: "",
-  password: "",
+  account: "xiaotuxian001",
+  password: "123456",
   agree: false,
 });
 const formRef = ref(null);
@@ -30,10 +34,20 @@ const rules = {
     },
   ],
 };
+//登录函数
+const router = useRouter();
 function doLogin() {
-  formRef.value.validate((valid) => {
+  const { account, password } = form.value;
+  formRef.value.validate(async (valid) => {
     if (valid) {
       //TODO LOGIN
+      const res = await loginAPI({ account, password });
+      console.log("aaaa", res);
+      //提示用户
+      ElMessage({ type: "success", message: "登陆成功" });
+      //回到首页
+      router.replace({ path: "/" });
+      //在拦截器做统一的失败处理
     }
   });
 }
