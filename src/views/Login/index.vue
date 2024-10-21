@@ -7,6 +7,7 @@ const form = ref({
   password: "",
   agree: false,
 });
+const formRef = ref(null);
 
 //表单校验规则
 const rules = {
@@ -18,7 +19,6 @@ const rules = {
   agree: [
     {
       validator: (rule, value, callback) => {
-        console.log(value);
         //自定义校验逻辑
         //勾选就通过
         if (value) {
@@ -30,6 +30,13 @@ const rules = {
     },
   ],
 };
+function doLogin() {
+  formRef.value.validate((valid) => {
+    if (valid) {
+      //TODO LOGIN
+    }
+  });
+}
 /* watch(
   () => form.value.agree,
   (newValue, oldValue) => {
@@ -77,6 +84,7 @@ const rules = {
               status-icon
               :rules="rules"
               :model="form"
+              ref="formRef"
             >
               <el-form-item label="账户" prop="account">
                 <el-input v-model="form.account" />
@@ -89,7 +97,9 @@ const rules = {
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin"
+                >点击登录</el-button
+              >
             </el-form>
           </div>
         </div>
