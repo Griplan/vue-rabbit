@@ -1,11 +1,34 @@
-<script setup></script>
+<script setup>
+import { useUserStore } from "@/stores/user";
+const userStore = useUserStore();
+</script>
 
 <template>
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="false">
-          <li><a href="javasrcipt:;"></a></li>
+        <!-- 多模版渲染 区分登录状态和非登录状态 -->
+
+        <!-- 适配思路: 登录时显示第一块 非登录时显示第二块  是否有token -->
+        <template v-if="userStore.userInfo.token">
+          <li>
+            <a href="javascript:;" @click="$router.push('/member')"
+              ><i class="iconfont icon-user"></i
+              >{{ userStore.userInfo.account }}</a
+            >
+          </li>
+          <li>
+            <el-popconfirm
+              @confirm="confirm"
+              title="确认退出吗?"
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+            >
+              <template #reference>
+                <a href="javascript:;">退出登录</a>
+              </template>
+            </el-popconfirm>
+          </li>
           <li>
             <a href="javascript:;" @click="$router.push('/member/order')"
               >我的订单</a
