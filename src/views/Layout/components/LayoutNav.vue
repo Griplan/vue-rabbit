@@ -1,6 +1,14 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const userStore = useUserStore();
+
+function confirm() {
+  console.log("要推出了");
+  userStore.userInfo = {};
+  router.replace("/login");
+}
 </script>
 
 <template>
