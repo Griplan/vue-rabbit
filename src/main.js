@@ -2,11 +2,14 @@
 import '@/styles/common.scss'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
 
 import App from './App.vue'
 import router from './router'
 import { lazyPlugin } from './directives'
-import {componentPlugin}from '@/components'
+import { componentPlugin } from '@/components'
+
 //import { useIntersectionObserver } from "@vueuse/core"; //自定义指令时用到的获取组件是否出现
 
 //测试接口函数
@@ -17,8 +20,11 @@ getCategory().then(res => {
 
 
 const app = createApp(App)
+//pinia持久化插件
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(componentPlugin)
 app.use(lazyPlugin)
