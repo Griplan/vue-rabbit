@@ -44,7 +44,7 @@ import ImageViewer from "./components/imageViewer.vue";
 const goodsDetail = ref({});
 const route = useRoute();
 async function getGoodsDetail() {
-  goodsDetail.value = (await getGoodsDetailsAPI(route.params.id)).data.result;
+  goodsDetail.value = (await getGoodsDetailsAPI(route.params.id)).result;
 }
 onMounted(() => getGoodsDetail());
 

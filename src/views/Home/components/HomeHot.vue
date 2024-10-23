@@ -7,7 +7,7 @@ import HomePannal from "./HomePannal.vue";
 
 const hotList = ref([]);
 async function getHotList() {
-  hotList.value = (await getHotAPI()).data.result;
+  hotList.value = (await getHotAPI()).result;
 }
 onMounted(() => {
   getHotList();

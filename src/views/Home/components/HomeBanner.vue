@@ -7,7 +7,7 @@ onMounted(() => getBanner()); //挂载时就调用
 
 const bannerList = ref([]);
 async function getBanner() {
-  bannerList.value = (await getBannerAPI()).data.result;
+  bannerList.value = (await getBannerAPI()).result;
 }
 </script>
 

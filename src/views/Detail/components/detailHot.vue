@@ -6,7 +6,7 @@ import { useRoute } from "vue-router";
 const goodsHot = ref({});
 const route = useRoute();
 async function getGoodsHot() {
-  goodsHot.value = (await fetchHotGoodsAPI(route.params.id, 1)).data.result;
+  goodsHot.value = (await fetchHotGoodsAPI(route.params.id, 1)).result;
 }
 onMounted(() => getGoodsHot());
 //适配不同热榜

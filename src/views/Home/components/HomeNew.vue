@@ -4,7 +4,9 @@ import HomePannal from "./HomePannal.vue";
 import { getNewAPI } from "@/apis/home";
 const newList = ref([]);
 async function getNewList() {
-  newList.value = (await getNewAPI()).data.result;
+  //newList.value = (await getNewAPI()).data.result;
+  const res = await getNewAPI();
+  newList.value = res.result;
 }
 onMounted(() => {
   getNewList();
