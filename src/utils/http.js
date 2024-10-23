@@ -1,6 +1,7 @@
 //axios基础封装
 import axios from "axios";
 import "element-plus/es/components/message/style/css";
+import router from "@/router";
 import { ElMessage } from "element-plus";
 import { useUserStore } from "@/stores/user";
 
@@ -29,10 +30,17 @@ httpInstance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 httpInstance.interceptors.response.use(res => res.data, e => {
+  const userStore = useUserStore();
   ElMessage({
     type: 'warning',
     message:e.response.data.message
   })
+  //401token失效处理
+  //1.清除本地用户数据  2.跳转到登录页
+  if (e.response.status === 401) {
+    userStore.clearUserInfo();
+    router.push('/login')
+  }
   return Promise.reject(e)
 });
 

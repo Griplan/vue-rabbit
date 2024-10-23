@@ -6,7 +6,7 @@ const userStore = useUserStore();
 
 function confirm() {
   console.log("要推出了");
-  userStore.userInfo = {};
+  userStore.clearUserInfo();
   router.replace("/login");
 }
 </script>
