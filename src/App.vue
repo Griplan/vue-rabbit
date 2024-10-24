@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-const myName = "try git";
+let myName = "try git";
 </script>
 
 <style scoped lang="scss">
