@@ -2,7 +2,9 @@
   <RouterView></RouterView>
 </template>
 
-<script setup></script>
+<script setup>
+const try="try git"
+</script>
 
 <style scoped lang="scss">
 .test {
